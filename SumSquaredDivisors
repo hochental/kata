@@ -1,0 +1,28 @@
+import java.util.*;
+public class SumSquaredDivisors {
+
+  public static String listSquared(long m, long n) {
+        TreeMap< Integer, List<Integer>> listOfDivisiors = new TreeMap<>();
+        for(int i = (int) m; i<n; i++){
+            ArrayList<Integer> list = new ArrayList<>();
+            for(int j=1; j<=i; j++){
+                if(i%j==0){
+                    list.add((int) Math.pow(j,2));
+                }
+            }
+            listOfDivisiors.put(i, list);
+        }
+
+
+        StringBuilder sb = new StringBuilder();
+        sb.append("[");
+        for(Integer key: listOfDivisiors.keySet()){
+            String s = String.valueOf(Math.sqrt(listOfDivisiors.get(key).stream().mapToInt(Integer::intValue).sum()));
+            if(s.split("\\.")[1].length()<=1)
+                sb.append("["+key+", "+listOfDivisiors.get(key).stream().mapToInt(Integer::intValue).sum()+"], ");
+
+        }
+
+        return sb.substring(0,sb.length()-2)+"]";
+    }
+}
